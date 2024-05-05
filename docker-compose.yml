@@ -11,47 +11,48 @@ services:
     volumes:
       - postgres:/data/postgres
     expose:
-      - "5434"
+      - "5436"
     ports:
-      - '5434:5434'
-    command: -p 5434
+      - '5436:5436'
+    command: -p 5436
     networks:
       - postgres
     restart: unless-stopped
 
-#  pgadmin:
-#    container_name: pgadmin_todoapp_container
-#    image: dpage/pgadmin4
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-#      PGADMIN_CONFIG_SERVER_MODE: 'False'
-#    volumes:
-#      - pgadmin:/var/lib/pgadmin
-#
-#    ports:
-#      - '${PGADMIN_PORT:-5051}:80'
-#    networks:
-#      - postgres
-#    restart: unless-stopped
+  #  pgadmin:
+  #    container_name: pgadmin_todoapp_container
+  #    image: dpage/pgadmin4
+  #    environment:
+  #      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+  #      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+  #      PGADMIN_CONFIG_SERVER_MODE: 'False'
+  #    volumes:
+  #      - pgadmin:/var/lib/pgadmin
+  #
+  #    ports:
+  #      - '${PGADMIN_PORT:-5051}:80'
+  #    networks:
+  #      - postgres
+  #    restart: unless-stopped
 
-#  nestjs-api:
-#    build:
-#      dockerfile: Dockerfile
-#      context: .
-#    volumes:
-#      - .:/user/src/app
-#      - /user/src/app/node_modules
-#    environment:
-#      POSTGRES_HOST: postgres
-#      POSTGRES_PORT: 5434
-#    command: npm run start
-#    ports:
-#      - "4000:4000"
-#    depends_on:
-#      - postgres
-#    networks:
-#      - postgres
+  nestjs-api:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    volumes:
+      - .:/user/src/app
+      - /user/src/app/node_modules
+    environment:
+      APP_PORT: 4004
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5436
+    command: npm run start
+    ports:
+      - "4004:4004"
+    depends_on:
+      - postgres
+    networks:
+      - postgres
 
 networks:
   postgres:
