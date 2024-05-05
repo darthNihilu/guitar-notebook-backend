@@ -60,5 +60,5 @@ networks:
 
 volumes:
   postgres:
-  pgadmin:
+  #  pgadmin:
   nestjs-api:
